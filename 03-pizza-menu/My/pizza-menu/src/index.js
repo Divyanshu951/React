@@ -58,7 +58,10 @@ function App() {
 }
 
 function Header() {
-  return <h1>Fast React Pizza Co.</h1>;
+  // const style = { color: "red", fontSize: "22px", TextTransform: "uppercase" };
+  return (
+    <h1 style={{ color: "red", fontSize: "48px" }}>Fast React Pizza Co.</h1>
+  );
 }
 
 function Menu() {
@@ -90,7 +93,7 @@ function Footer() {
 function Pizza() {
   return (
     <div>
-      <h2>Pizza Prosciutto</h2>
+      <h2 className="h2">Pizza Prosciutto</h2>
       <p>Tomato, mozarella, spinach, and ricotta cheese</p>
       <img src="pizzas/spinaci.jpg" alt="Pizza" />
     </div>
@@ -104,3 +107,6 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+// ❌ Older React (<18) used:
+// ReactDOM.render(<App />, document.getElementById("root"));
