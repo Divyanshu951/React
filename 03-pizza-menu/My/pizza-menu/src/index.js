@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom/client";
+import "./index.css";
 
 const pizzaData = [
   {
@@ -48,7 +49,7 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
+    <div className="container">
       {/* Comments */}
       <Header />
       <Menu />
@@ -60,18 +61,46 @@ function App() {
 function Header() {
   // const style = { color: "red", fontSize: "22px", TextTransform: "uppercase" };
   return (
-    <h1 style={{ color: "red", fontSize: "48px" }}>Fast React Pizza Co.</h1>
+    // <h1 style={{ color: "red", fontSize: "48px" }}>Fast React Pizza Co.</h1>
+    <header className="header">
+      <h1>Fast React Pizza Co.</h1>
+    </header>
   );
 }
 
 function Menu() {
   return (
-    <div>
+    <main className="menu">
       <h2>Our menu</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
-      <Pizza />
+      <Pizza
+        name="Pizza Prosciutto"
+        ingredients="Tomato, mozarella, ham, aragula, and burrata cheese"
+        photoName="pizzas/prosciutto.jpg"
+        price={10}
+      />
+
+      <Pizza
+        name="Focaccia"
+        ingredients="Bread with italian olive oil and rosemary"
+        photoName="pizzas/focaccia.jpg"
+        price={6}
+      />
+    </main>
+  );
+}
+
+function Pizza(props) {
+  // props
+  // const {name, ingredients, photoName, price}
+
+  return (
+    <div className="pizza">
+      <img src={props.photoName} alt={props.name} />
+      <div>
+        <h3>{props.name}</h3>
+        <p>{props.ingredients}</p>
+        <span>{props.price}</span>
+      </div>
     </div>
   );
 }
@@ -87,17 +116,7 @@ function Footer() {
   // if (hour >= openHour && hour <= closedhour) alert("We are still open");
   // else alert("Sorry we are closed");
 
-  return <footer>{hour} We're currently open</footer>;
-}
-
-function Pizza() {
-  return (
-    <div>
-      <h2 className="h2">Pizza Prosciutto</h2>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-      <img src="pizzas/spinaci.jpg" alt="Pizza" />
-    </div>
-  );
+  return <footer className="footer">{hour} We're currently open</footer>;
 }
 
 // React V18
