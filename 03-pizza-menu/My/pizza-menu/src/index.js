@@ -72,46 +72,43 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our menu</h2>
-      <Pizza
-        name="Pizza Prosciutto"
-        ingredients="Tomato, mozarella, ham, aragula, and burrata cheese"
-        photoName="pizzas/prosciutto.jpg"
-        price={10}
-      />
 
-      <Pizza
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza pizzaObj={pizza} key={pizza.name} />
+        ))}
+      </ul>
+
+      {/* <Pizza
         name="Focaccia"
         ingredients="Bread with italian olive oil and rosemary"
         photoName="pizzas/focaccia.jpg"
         price={6}
-      />
+      /> */}
     </main>
   );
 }
 
 function Pizza(props) {
-  // props
-  // const {name, ingredients, photoName, price}
-
   return (
-    <div className="pizza">
-      <img src={props.photoName} alt={props.name} />
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
       <div>
-        <h3>{props.name}</h3>
-        <p>{props.ingredients}</p>
-        <span>{props.price}</span>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>{props.pizzaObj.price}</span>
       </div>
-    </div>
+    </li>
   );
 }
 
 function Footer() {
-  const hour = new Date().getHours();
+  const hour = new Date().toLocaleTimeString();
   const openHour = 12;
   const closedhour = 22;
-  const isOpen = hour >= openHour && hour <= closedhour;
+  // const isOpen = hour >= openHour && hour <= closedhour;
 
-  console.log(isOpen);
+  // console.log(isOpen);
 
   // if (hour >= openHour && hour <= closedhour) alert("We are still open");
   // else alert("Sorry we are closed");
