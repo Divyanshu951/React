@@ -73,16 +73,22 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our menu</h2>
+      <>
+        <p>
+          Authantic italian cuisine. 6 creative dishes to choose from. All from
+          our stone oven, all organic, all delicious.
+        </p>
 
-      {pizzas.length > 0 ? (
-        <ul className="pizzas">
-          {pizzas.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
-      ) : (
-        <p>We're still working on our meny. Please come back later</p>
-      )}
+        {pizzas.length > 0 ? (
+          <ul className="pizzas">
+            {pizzas.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        ) : (
+          <p>We're still working on our meny. Please come back later</p>
+        )}
+      </>
 
       {/* <Pizza
         name="Focaccia"
@@ -94,16 +100,16 @@ function Menu() {
   );
 }
 
-function Pizza(props) {
+function Pizza({ pizzaObj }) {
   // if (props.pizzaObj.soldOut) return null;
 
   return (
-    <li className="pizza">
-      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>{props.pizzaObj.price}</span>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{!pizzaObj.soldOut ? pizzaObj.price : "SOLD OUT"}</span>
       </div>
     </li>
   );
