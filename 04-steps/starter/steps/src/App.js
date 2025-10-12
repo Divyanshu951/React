@@ -1,18 +1,62 @@
 import { useState } from "react";
 
+const messages = [
+  "Learn React ⚛️",
+  "Apply for jobs 💼",
+  "Invest your new income 🤑",
+];
+
 export default function App() {
-  console.log("🔁 App component executed!");
+  // S1
+  // The useSate is called an hook, Everything starting with "use" is called hook
+  // Always call hook on the top of the function, Not in in if else not in an function
 
-  const [count, setCount] = useState(0);
+  const [step, setStep] = useState(1);
+  const [isOpen, setIsOpen] = useState(true);
 
-  function handleClick() {
-    setCount(count + 1); // updating state
+  function handlePrevious() {
+    if (step > 1) setStep(step - 1);
+  }
+
+  function handlenext() {
+    // step = step  + 1 will not work because the react has no way of knowing that the var has changed
+    if (step < messages.length) setStep(step + 1);
   }
 
   return (
-    <div>
-      <h1>Count: {count}</h1>
-      <button onClick={handleClick}>Increase</button>
-    </div>
+    <>
+      <button className="close" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? <span>&times;</span> : <span>&copy;</span>}
+      </button>
+
+      {isOpen && (
+        <div className="steps">
+          <div className="numbers">
+            <div className={step >= 1 ? "active" : ""}>1</div>
+            <div className={step >= 2 ? "active" : ""}>2</div>
+            <div className={step >= 3 ? "active" : ""}>3</div>
+          </div>
+
+          <p className="message">
+            Step {step}: {messages[step - 1]}
+          </p>
+
+          <div className="buttons">
+            <button
+              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+              onClick={handlePrevious}
+            >
+              Previous
+            </button>
+            <button
+              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+              onClick={handlenext}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
