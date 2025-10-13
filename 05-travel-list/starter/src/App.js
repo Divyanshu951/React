@@ -21,7 +21,7 @@ function Logo() {
 }
 
 function Form() {
-  // Controlled Element
+  // Controlled  Element
   // Step - 1
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
