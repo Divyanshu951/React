@@ -12,6 +12,7 @@ export default function App() {
       <Form />
       <PackingList />
       <Stats />
+      <Test obj="obj" />
     </div>
   );
 }
@@ -93,4 +94,10 @@ function Stats() {
       <em>👜You have XX items on your list and you already packed X(X%)</em>
     </footer>
   );
+}
+
+function Test(prop) {
+  console.log(prop);
+
+  return <h1>hh</h1>;
 }
