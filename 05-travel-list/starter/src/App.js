@@ -3,6 +3,7 @@ import { useState } from "react";
 const initialItems = [
   { id: 1, description: "Passports", quantity: 2, packed: false },
   { id: 2, description: "Socks", quantity: 12, packed: true },
+  { id: 3, description: "Charger", quantity: 2, packed: false },
 ];
 
 export default function App() {
@@ -12,7 +13,6 @@ export default function App() {
       <Form />
       <PackingList />
       <Stats />
-      <Test obj="obj" />
     </div>
   );
 }
@@ -26,6 +26,11 @@ function Form() {
   // Step - 1
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [items, setItems] = useState([]);
+
+  function handleAddItems(item) {
+    setItems((items) => [...items, item]);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -33,7 +38,9 @@ function Form() {
 
     const newItem = { id: Date.now(), description, quantity, packed: false };
 
-    console.log(newItem);
+    console.log(initialItems);
+
+    handleAddItems(newItem);
 
     setDescription("");
     setQuantity(1);
@@ -94,10 +101,4 @@ function Stats() {
       <em>👜You have XX items on your list and you already packed X(X%)</em>
     </footer>
   );
-}
-
-function Test(prop) {
-  console.log(prop);
-
-  return <h1>hh</h1>;
 }
