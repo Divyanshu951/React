@@ -62,7 +62,7 @@ function Form() {
       <input
         type="text"
         placeholder="Item..."
-        // Step - 02
+        // Step - 2
         value={description}
         // Step - 3
         onChange={(e) => setDescription(e.target.value)}
