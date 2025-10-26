@@ -6,14 +6,29 @@
 //   { id: 3, description: "Charger", quantity: 2, packed: false },
 // ];
 
+const pizzas = ["ljdhfgklhgkjh", "Margherita", "Pepperoni", "Veggie"];
+
 export default function App() {
   return (
-    <div className="app">
-      <Start />
-    </div>
+    <ul className="app">
+      {pizzas.map((item) => (
+        <Start text={item} key={item} />
+      ))}
+    </ul>
   );
 }
 
-function Start() {
-  return <p>hello</p>;
+function Start({ text }) {
+  return (
+    <li
+      style={{
+        color: "red",
+        fontSize: "40px",
+        textTransform: "uppercase",
+        borderBottom: "2px solid green",
+      }}
+    >
+      {text}
+    </li>
+  );
 }
