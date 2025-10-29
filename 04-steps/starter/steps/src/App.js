@@ -28,8 +28,7 @@ export default function App() {
       </div>
 
       <p className="message">
-        {active}
-        {messages[active]}
+        {active} - {messages[active]}
       </p>
 
       <div className="buttons">
