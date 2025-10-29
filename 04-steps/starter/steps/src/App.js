@@ -7,35 +7,35 @@ const messages = [
 ];
 
 export default function App() {
-  const [active, setActive] = useState(0);
+  const [step, setStep] = useState(1);
+
+  console.log(step);
+
+  function handleNext() {
+    if (step < 3) setStep(step + 1);
+  }
+
+  function handlePrevious() {
+    if (step > 1) setStep(step - 1);
+  }
 
   const buttonStyle = { background: "#7950F2", color: "#fff" };
-
-  function next() {
-    if (active < 2) setActive(active + 1);
-  }
-
-  function previous() {
-    if (active > 0) setActive(active - 1);
-  }
 
   return (
     <div className="steps">
       <div className="numbers">
-        <div className={active >= 0 ? "active" : ""}>1</div>
-        <div className={active >= 1 ? "active" : ""}>2</div>
-        <div className={active >= 2 ? "active" : ""}>3</div>
+        <div className={step >= 1 ? "active" : ""}>1</div>
+        <div className={step >= 2 ? "active" : ""}>2</div>
+        <div className={step >= 3 ? "active" : ""}>3</div>
       </div>
 
-      <p className="message">
-        {active} - {messages[active]}
-      </p>
+      <p className="message">{messages[step - 1]}</p>
 
       <div className="buttons">
-        <button onClick={previous} style={buttonStyle}>
+        <button onClick={handlePrevious} style={buttonStyle}>
           Previous
         </button>
-        <button onClick={next} style={buttonStyle}>
+        <button onClick={handleNext} style={buttonStyle}>
           Next
         </button>
       </div>
