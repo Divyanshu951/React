@@ -9,8 +9,6 @@ const messages = [
 export default function App() {
   const [step, setStep] = useState(1);
 
-  console.log(step);
-
   function handleNext() {
     if (step < 3) setStep(step + 1);
   }
@@ -29,7 +27,9 @@ export default function App() {
         <div className={step >= 3 ? "active" : ""}>3</div>
       </div>
 
-      <p className="message">{messages[step - 1]}</p>
+      <p className="message">
+        Step {step} : {messages[step - 1]}
+      </p>
 
       <div className="buttons">
         <button onClick={handlePrevious} style={buttonStyle}>
