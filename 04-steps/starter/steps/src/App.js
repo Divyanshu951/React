@@ -7,77 +7,86 @@ const messages = [
 ];
 
 export default function App() {
-  // const [step, setStep] = useState(1);
-  // const [isOpen, setIsOpen] = useState(true);
+  return (
+    <div>
+      <Steps />
+    </div>
+  );
+}
 
-  // function handleNext() {
-  //   if (step < 3) setStep((prevStep) => prevStep + 1);
-  // }
-
-  // function handlePrevious() {
-  //   if (step > 1) setStep((prevStep) => prevStep - 1);
-  // }
-
-  // const buttonStyle = { background: "#7950F2", color: "#fff" };
-
-  // Variables
+function Steps() {
   const [step, setStep] = useState(1);
-  const [count, setCount] = useState(0);
+  const [isOpen, setIsOpen] = useState(true);
 
-  const date = new Date();
-  date.setDate(date.getDate() + count);
+  // const [test, setTest] = useState({ name: "Jonas" });
+
+  function handlePrevious() {
+    if (step > 1) setStep((s) => s - 1);
+  }
+
+  function handleNext() {
+    if (step < 3) {
+      setStep((s) => s + 1);
+      // setStep((s) => s + 1);
+    }
+
+    // BAD PRACTICE
+    // test.name = "Fred";
+    // setTest({ name: "Fred" });
+  }
 
   return (
-    <>
-      {/* <div>
-        <button onClick={() => setStep((prevStep) => prevStep - 1)}>-</button>
-        <span>Step: {step}</span>
-        <button onClick={() => setStep((prevStep) => prevStep + 1)}>+</button>
-      </div> */}
-      <input
-        type="range"
-        min="1"
-        max="10"
-        value={step}
-        onChange={(e) => setStep(Number(e.target.value))}
-      />
-      <span>{step}</span>
-      <div>
-        <button onClick={() => setCount((prevCount) => prevCount - step)}>
-          -
-        </button>
-        <span>
-          <input
-            type="text"
-            value={count}
-            onChange={(e) => setCount(Number(e.target.value))}
-          />
-        </span>
-        <button onClick={() => setCount((prevCount) => prevCount + step)}>
-          +
-        </button>
-      </div>
-      <p>
-        <span>
-          {count === 0
-            ? "Today is "
-            : count > 0
-            ? `${count} days from today is `
-            : `${Math.abs(count)} days ago was `}
-        </span>
-        <span>{date.toDateString()}</span>
-      </p>
-      {count !== 0 ||
-        (step !== 1 && (
-          <button
-            onClick={() => {
-              setCount(0);
-              setStep(1);
-            }}
-          >
-            Reset
-          </button>
-        ))}
-    </>
+    <div>
+      <button className="close" onClick={() => setIsOpen((is) => !is)}>
+        &times;
+      </button>
+
+      {isOpen && (
+        <div className="steps">
+          <div className="numbers">
+            <div className={step >= 1 ? "active" : ""}>1</div>
+            <div className={step >= 2 ? "active" : ""}>2</div>
+            <div className={step >= 3 ? "active" : ""}>3</div>
+          </div>
+
+          <StepMessage step={step}>{messages[step - 1]} </StepMessage>
+
+          <div className="buttons">
+            <Button
+              textColor={"#fff"}
+              bgColor={"#7950f2"}
+              onClick={handlePrevious}
+            >
+              <span>🫰</span>
+              Previous
+            </Button>
+
+            <Button textColor={"#fff"} bgColor={"#7950f2"} onClick={handleNext}>
+              Next <span>🫰</span>
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function StepMessage({ step, children }) {
+  return (
+    <p className="message">
+      <h3>Step {step}</h3> {children}
+      {/* {test.name} */}
+    </p>
+  );
+}
+
+function Button({ textColor, bgColor, onClick, children }) {
+  return (
+    <button
+      style={{ backgroundColor: bgColor, color: textColor }}
+      onClick={onClick}
+    >
+      {children}
+    </button>
   );
 }
