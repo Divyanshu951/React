@@ -1,0 +1,14 @@
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.marginL {
+  margin-right: 30px;
+}
