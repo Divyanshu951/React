@@ -1,0 +1,16 @@
+.amazon-add-to-cart-button {
+  cursor: pointer;
+  border: none;
+  background-color: rgb(255, 216, 20); /* Amazon Yellow-Orange */
+  color: rgb(15, 17, 17); /* Dark text */
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  /* Optional: Add a transition for the hover effect */
+  transition: background-color 0.1s;
+}
+
+.amazon-add-to-cart-button:hover {
+  background-color: rgb(245, 205, 3); /* Slightly darker on hover */
+}
