@@ -64,11 +64,7 @@ export default function App() {
   function handleAddToCart(id) {
     setCartItems((prev) => {
       const item = items.find((i) => i.id === id);
-
-      // If the item already exists, return prev
       if (prev.some((i) => i.id === id)) return prev;
-
-      // Otherwise, add it with cart set to true
       return [...prev, { ...item, cart: true }];
     });
   }
