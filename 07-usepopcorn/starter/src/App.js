@@ -55,6 +55,7 @@ const average = (arr) =>
 
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
+  const [watched, setWatched] = useState(tempWatchedData);
 
   return (
     <>
@@ -62,7 +63,15 @@ export default function App() {
         <Search />
         <NumResults movies={movies} />
       </NavBar>
-      <Main movies={movies} />
+      <Main>
+        <Box>
+          <MovieList movies={movies} />
+        </Box>
+        <Box>
+          <WachedSummery watched={watched} />
+          <WatcheMoviesList watched={watched} />{" "}
+        </Box>
+      </Main>
     </>
   );
 }
@@ -107,27 +116,19 @@ function NumResults({ movies }) {
   );
 }
 
-function Main({ movies }) {
-  return (
-    <main className="main">
-      <ListBox movies={movies} />
-      <WatchedBox />
-    </main>
-  );
+function Main({ children }) {
+  return <main className="main">{children}</main>;
 }
 
-function ListBox({ movies }) {
-  const [isOpen1, setIsOpen1] = useState(true);
+function Box({ children }) {
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen1((open) => !open)}
-      >
-        {isOpen1 ? "–" : "+"}
+      <button className="btn-toggle" onClick={() => setIsOpen((open) => !open)}>
+        {isOpen ? "–" : "+"}
       </button>
-      {isOpen1 && <MovieList movies={movies} />}
+      {isOpen && children}
     </div>
   );
 }
@@ -154,29 +155,6 @@ function Movie({ movie }) {
         </p>
       </div>
     </li>
-  );
-}
-
-function WatchedBox() {
-  const [watched, setWatched] = useState(tempWatchedData);
-  const [isOpen2, setIsOpen2] = useState(true);
-
-  return (
-    <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen2((open) => !open)}
-      >
-        {isOpen2 ? "–" : "+"}
-      </button>
-
-      {isOpen2 && (
-        <>
-          <WachedSummery watched={watched} />
-          <WatcheMoviesList watched={watched} />
-        </>
-      )}
-    </div>
   );
 }
 
@@ -242,3 +220,35 @@ function WatchedMovie({ movie }) {
     </li>
   );
 }
+
+// Practice
+
+// function ProductCard() {
+//   const mainDiv = {
+//     backgroundColor: "#F0F8FF",
+//     color: "#000",
+//     fontSize: "24px",
+//     display: "flex",
+//     flexDirection: "column",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     padding: "30px",
+//   };
+
+//   const img = {
+//     height: "150px",
+//     marginBottom: "40px",
+//   };
+
+//   return (
+//     <div style={mainDiv}>
+//       <img
+//         style={img}
+//         src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRJCtykfSSoSaZsLwYMSTFhb6ATQueW_Td4SPAT1xkQM9g5_cYyVvw296CCyB2WNjFgLAFergkxJYOwBio2hQp8pMwbZdDzYy3jqPBr8bMMcal8S13H_GLK"
+//         alt="Nike Men's Court Vision Low Shoes"
+//       />
+//       <p>Nike Shoes</p>
+//       <p>$199.99</p>
+//     </div>
+//   );
+// }
