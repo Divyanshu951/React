@@ -39,7 +39,9 @@ function Tabbed({ content }) {
       </div>
 
       {activeTab <= 2 ? (
-        <TabContent item={content.at(activeTab)} />
+        content.map((item, i) => (
+          <TabContent item={item} num={i} activeTab={activeTab} key={i} />
+        ))
       ) : (
         <DifferentContent />
       )}
@@ -58,7 +60,7 @@ function Tab({ num, activeTab, onClick }) {
   );
 }
 
-function TabContent({ item }) {
+function TabContent({ item, num, activeTab }) {
   const [showDetails, setShowDetails] = useState(true);
   const [likes, setLikes] = useState(0);
 
@@ -67,27 +69,29 @@ function TabContent({ item }) {
   }
 
   return (
-    <div className="tab-content">
-      <h4>{item.summary}</h4>
-      {showDetails && <p>{item.details}</p>}
+    num === activeTab && (
+      <div className="tab-content">
+        <h4>{item.summary}</h4>
+        {showDetails && <p>{item.details}</p>}
 
-      <div className="tab-actions">
-        <button onClick={() => setShowDetails((h) => !h)}>
-          {showDetails ? "Hide" : "Show"} details
-        </button>
+        <div className="tab-actions">
+          <button onClick={() => setShowDetails((h) => !h)}>
+            {showDetails ? "Hide" : "Show"} details
+          </button>
 
-        <div className="hearts-counter">
-          <span>{likes} ❤️</span>
-          <button onClick={handleInc}>+</button>
-          <button>+++</button>
+          <div className="hearts-counter">
+            <span>{likes} ❤️</span>
+            <button onClick={handleInc}>+</button>
+            <button>+++</button>
+          </div>
+        </div>
+
+        <div className="tab-undo">
+          <button>Undo</button>
+          <button>Undo in 2s</button>
         </div>
       </div>
-
-      <div className="tab-undo">
-        <button>Undo</button>
-        <button>Undo in 2s</button>
-      </div>
-    </div>
+    )
   );
 }
 
