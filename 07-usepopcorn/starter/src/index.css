@@ -52,10 +52,29 @@ body {
 .box {
   width: 42rem;
   max-width: 42rem;
+  height: 100%; /* ✅ IMPORTANT */
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
-  /* overflow: scroll; */
+  overflow-y: auto; /* ✅ ONLY scroll here */
   position: relative;
+}
+
+/* Chrome, Edge, Safari */
+.box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.box::-webkit-scrollbar-track {
+  background: #000; /* black track */
+}
+
+.box::-webkit-scrollbar-thumb {
+  background: #808080; /* dark thumb */
+  border-radius: 10px;
+}
+
+.box::-webkit-scrollbar-thumb:hover {
+  background: #222;
 }
 
 .loader {

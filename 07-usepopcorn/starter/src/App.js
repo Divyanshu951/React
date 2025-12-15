@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const tempMovieData = [
   {
@@ -53,9 +53,25 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+const KEY = `6ce769c8`;
+
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+
+  // https://www.omdbapi.com/?t=interstaller&apikey=6ce769c8
+
+  useEffect(function () {
+    async function fetchMovies() {
+      const res = await fetch(
+        `https://www.omdbapi.com/?apikey=${KEY}&s=interstellar`
+      );
+      const data = await res.json();
+      setMovies(data.Search);
+    }
+
+    fetchMovies();
+  }, []); // [] means that the component only runs on the component mount
 
   return (
     <>
@@ -220,35 +236,3 @@ function WatchedMovie({ movie }) {
     </li>
   );
 }
-
-// Practice
-
-// function ProductCard() {
-//   const mainDiv = {
-//     backgroundColor: "#F0F8FF",
-//     color: "#000",
-//     fontSize: "24px",
-//     display: "flex",
-//     flexDirection: "column",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     padding: "30px",
-//   };
-
-//   const img = {
-//     height: "150px",
-//     marginBottom: "40px",
-//   };
-
-//   return (
-//     <div style={mainDiv}>
-//       <img
-//         style={img}
-//         src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRJCtykfSSoSaZsLwYMSTFhb6ATQueW_Td4SPAT1xkQM9g5_cYyVvw296CCyB2WNjFgLAFergkxJYOwBio2hQp8pMwbZdDzYy3jqPBr8bMMcal8S13H_GLK"
-//         alt="Nike Men's Court Vision Low Shoes"
-//       />
-//       <p>Nike Shoes</p>
-//       <p>$199.99</p>
-//     </div>
-//   );
-// }
