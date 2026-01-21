@@ -63,6 +63,7 @@ export default function App() {
           selectedFriend={selectedFriend}
           onSetFriend={setFriends}
           friends={friends}
+          key={selectedFriend.id}
         />
       )}
     </div>
@@ -163,6 +164,8 @@ function FormAddFriend({ onAddFriend }) {
 }
 
 function FormSplitBill({ selectedFriend, onSetFriend, friends }) {
+  console.log(selectedFriend);
+
   const [bill, setBill] = useState("");
   const [paidByUser, setPaidByUser] = useState("");
   const [whoIsPaying, setWhoIsPaying] = useState("user");
@@ -185,8 +188,8 @@ function FormSplitBill({ selectedFriend, onSetFriend, friends }) {
                   ? friend.balance - paidByFriend // friend owes you
                   : friend.balance + paidByUser, // you owe friend
             }
-          : friend
-      )
+          : friend,
+      ),
     );
 
     setBill("");
@@ -211,7 +214,7 @@ function FormSplitBill({ selectedFriend, onSetFriend, friends }) {
         value={paidByUser}
         onChange={(e) =>
           setPaidByUser(
-            Number(e.target.value) > bill ? paidByUser : Number(e.target.value)
+            Number(e.target.value) > bill ? paidByUser : Number(e.target.value),
           )
         }
       />

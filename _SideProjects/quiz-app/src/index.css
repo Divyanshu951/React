@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  padding: 30px;
+  font-family: PT Sans, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+header h1 {
+  text-align: center;
+}
+
+.timer {
+  font-size: 32px;
+  text-align: center;
+  padding: 10px;
+}
+
+.timer em {
+  color: orangered;
+}
+
+.question {
+  min-width: 600px;
+  border: 1px solid #ccc;
+}
+
+.question__arrow {
+  color: #1da1f2;
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+}
+
+.question .question__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+}
+
+.question__progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  cursor: pointer;
+  background-color: rgb(29, 161, 242);
+  color: #fff;
+  border: none;
+  padding: 5px;
+}
+
+.question__text {
+  padding: 20px;
+  font-size: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.question__code {
+  border: 20px solid #585858;
+  padding: 15px;
+  color: #fff;
+  background-color: rgb(39, 40, 34);
+  font-size: 1.3rem;
+}
+
+.option {
+  cursor: pointer;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  background-color: rgb(29, 161, 242);
+  padding: 10px 0;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.option:hover {
+  opacity: 0.8;
+}
+
+.wrong {
+  background-color: #e14440;
+}
+
+.correct {
+  background-color: #4fc08d;
+}
+
+.disable {
+  cursor: not-allowed;
+}
