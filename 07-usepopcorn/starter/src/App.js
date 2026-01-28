@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
+import { useMovies } from "./useMovies";
+import { useLoaclStorageState } from "./useLocalStorageStage";
 
 const average = (arr) => {
   const valid = arr.filter(
@@ -14,15 +16,10 @@ const KEY = "6ce769c8";
 
 export default function App() {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
 
-  // const [watched, setWatched] = useState([]);
-  const [watched, setWatched] = useState(() =>
-    JSON.parse(localStorage.getItem("watched")),
-  );
+  const { movies, isLoading, error } = useMovies(query);
+  const [watched, setWatched] = useLoaclStorageState([], "watched");
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (selectedId === id ? null : id));
@@ -37,60 +34,11 @@ export default function App() {
     // localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
-  useEffect(
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched],
-  );
-
   function handleDeleteWatched(imdbID) {
     setWatched((watched) => watched.filter((m) => m.imdbID !== imdbID));
   }
 
   // useEffect runs only after the render is completed n render phase
-  useEffect(
-    function () {
-      const controller = new AbortController();
-
-      async function fetchMovies() {
-        try {
-          setIsLoading(true);
-          setError("");
-
-          const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-            { signal: controller.signal },
-          );
-          if (!res.ok)
-            throw new Error("Something went wrong with fetching movies");
-          const data = await res.json();
-          if (data.Response === "False") throw new Error(data.Error);
-          setMovies(data.Search);
-          setError("");
-        } catch (err) {
-          if (err.name !== "AbortError") {
-            setError(err.message);
-          }
-        } finally {
-          setIsLoading(false);
-        }
-      }
-
-      if (query.length <= 3) {
-        setMovies([]);
-        setError("");
-        return;
-      }
-
-      fetchMovies();
-
-      return function () {
-        controller.abort();
-      };
-    },
-    [query],
-  ); // Every state, props used inside the Effect must be included in the dependemcy array
 
   return (
     <>
@@ -120,6 +68,7 @@ export default function App() {
               <WatcheMoviesList
                 watched={watched}
                 onDeleteWatched={handleDeleteWatched}
+                onSelectWachedMovie={handleSelectMovie}
               />
             </>
           )}
@@ -430,7 +379,7 @@ function WachedSummery({ watched }) {
   );
 }
 
-function WatcheMoviesList({ watched, onDeleteWatched }) {
+function WatcheMoviesList({ watched, onDeleteWatched, onSelectWachedMovie }) {
   return (
     <ul className="list">
       {watched.map((movie) => (
@@ -438,15 +387,16 @@ function WatcheMoviesList({ watched, onDeleteWatched }) {
           movie={movie}
           key={movie.imdbID}
           onDeleteWatched={onDeleteWatched}
+          onSelectWachedMovie={onSelectWachedMovie}
         />
       ))}
     </ul>
   );
 }
 
-function WatchedMovie({ movie, onDeleteWatched }) {
+function WatchedMovie({ movie, onDeleteWatched, onSelectWachedMovie }) {
   return (
-    <li key={movie.imdbID}>
+    <li key={movie.imdbID} onClick={() => onSelectWachedMovie(movie.imdbID)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
@@ -465,7 +415,10 @@ function WatchedMovie({ movie, onDeleteWatched }) {
 
         <button
           className="btn-delete"
-          onClick={() => onDeleteWatched(movie.imdbID)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onDeleteWatched(movie.imdbID);
+          }}
         >
           X
         </button>
