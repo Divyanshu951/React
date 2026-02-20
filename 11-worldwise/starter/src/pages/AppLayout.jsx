@@ -1,12 +1,11 @@
 import PageNav from "../Components/PageNav";
 
-function PageNotFound() {
+function AppLayout() {
   return (
     <div>
       <PageNav />
-      Page not found :(
     </div>
   );
 }
 
-export default PageNotFound;
+export default AppLayout;
