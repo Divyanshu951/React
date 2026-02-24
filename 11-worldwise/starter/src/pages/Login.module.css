@@ -24,3 +24,10 @@
   flex-direction: column;
   gap: 0.5rem;
 }
+
+.ctaLogin {
+  background-color: var(--color-brand--2);
+  color: var(--color-dark--0);
+  padding: 0.8rem 2rem;
+  border-radius: 7px;
+}
